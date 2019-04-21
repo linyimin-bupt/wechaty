@@ -985,8 +985,8 @@ export class Wechaty extends Accessory implements Sayable {
    * > Tips:
    * This function is depending on the Puppet Implementation, see [puppet-compatible-table](https://github.com/Chatie/wechaty/wiki/Puppet#3-puppet-compatible-table)
    *
-   * @param {(string | Contact | FileBox)} textOrContactOrFileOrUrl
-   * send text, Contact, or file to bot. </br>
+   * @param {(string | Contact | FileBox | UrlLink)} textOrContactOrFileOrUrl
+   * send text, Contact, file or link to bot. </br>
    * You can use {@link https://www.npmjs.com/package/file-box|FileBox} to send file
    *
    * @returns {Promise<void>}
@@ -1012,6 +1012,15 @@ export class Wechaty extends Accessory implements Sayable {
    * import { FileBox }  from 'file-box'
    * const fileBox = FileBox.fromFile('/tmp/text.jpg')
    * await bot.say(fileBox)
+   *
+   * // 5. send Link to bot itself
+   * const linkPayload = new UrlLink({
+   *  description  : '关于netty处理网络中粘包，拆包的方式总结',
+   *  thumbnailUrl : 'http://mmbiz.qpic.cn/mmbiz_jpg/48MFTQpxichmmxEoXZ1w7eno72H2MQdx1WC6JiaVdYRmwAp4MCcQbctE2IE7jWqkWOlgMPqMBXVAdR1N46xEibvoQ/640?wx_fmt=jpeg&wxtype=jpeg&wxfrom=0',
+   *  title        : 'Netty里面的粘包拆包处理',
+   *  url          : 'http://mp.weixin.qq.com/s?__biz=MzU2MDU3MzE1Mg==&mid=2247484375&idx=1&sn=5ee91b0a8607a1766b5212a23d3c9179&chksm=fc04bc58cb73354e798403bcc03e293149bb115a0755940e334c0fbe33d7c3b0b0797120a213&scene=0&xtrack=1#rd',
+   * })
+   * await bot.say(linkPayload)
    */
 
   public async say (textOrContactOrFileOrUrl: string | Contact | FileBox | UrlLink): Promise<void> {
