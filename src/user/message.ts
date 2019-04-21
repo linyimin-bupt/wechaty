@@ -299,6 +299,21 @@ export class Message extends Accessory implements Sayable {
    * Get the destination of the message
    * Message.to() will return null if a message is in a room, use Message.room() to get the room.
    * @returns {(Contact|null)}
+   * @example
+   * const bot = new Wechaty()
+   * bot
+   * .on('message', async m => {
+   *   const contact = message.from()
+   *   const text = message.text()
+   *   const toContact = message.to()
+   *   if (toContact) {
+   *     const name = toContact.name()
+   *     console.log(`toContact: ${name} Contact: ${contact.name()} Text: ${text}`)
+   *   } else {
+   *     console.log(`Contact: ${contact.name()} Text: ${text}`)
+   *   }
+   * })
+   * .start()
    */
   public to (): null | Contact {
     if (!this.payload) {
@@ -466,6 +481,18 @@ export class Message extends Accessory implements Sayable {
    *       return
    *     }
    *     await msg.say(contactCard)
+   *   }
+   *
+   * // 4. send UrlLink
+   *
+   *   if (/^link$/i.test(m.text())) {
+   *     const linkPayload = new UrlLnik({
+   *       description  : '关于netty处理网络中粘包，拆包的方式总结',
+   *       thumbnailUrl : 'http://mmbiz.qpic.cn/mmbiz_jpg/48MFTQpxichmmxEoXZ1w7eno72H2MQdx1WC6JiaVdYRmwAp4MCcQbctE2IE7jWqkWOlgMPqMBXVAdR1N46xEibvoQ/640?wx_fmt=jpeg&wxtype=jpeg&wxfrom=0',
+   *       title        : 'Netty里面的粘包拆包处理',
+   *       url          : 'http://mp.weixin.qq.com/s?__biz=MzU2MDU3MzE1Mg==&mid=2247484375&idx=1&sn=5ee91b0a8607a1766b5212a23d3c9179&chksm=fc04bc58cb73354e798403bcc03e293149bb115a0755940e334c0fbe33d7c3b0b0797120a213&scene=0&xtrack=1#rd',
+   *     })
+   *     await msg.say(linkPayload)
    *   }
    *
    * })
